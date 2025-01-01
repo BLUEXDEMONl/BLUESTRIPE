@@ -20,6 +20,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    scroll-behavior: smooth;
 }
 
 .container {
@@ -45,7 +46,7 @@ header .container {
 
 header h1 {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 400;
     color: var(--primary-color);
 }
 
@@ -125,6 +126,7 @@ button:hover {
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
+    transition: transform 0.3s ease;
 }
 
 .story-avatar img {
@@ -145,6 +147,7 @@ button:hover {
     border: 1px solid var(--light-gray);
     border-radius: 3px;
     margin-bottom: 20px;
+    transition: transform 0.3s ease;
 }
 
 .post-header {
@@ -237,6 +240,7 @@ button:hover {
     background-size: cover;
     background-position: center;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 .modal {
@@ -326,3 +330,28 @@ button:hover {
     }
 }
 
+.logo {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.animate-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.story-avatar:hover, .post:hover, .user-post-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.new-content {
+    animation: pulse 0.5s ease-in-out;
+}
+
+    

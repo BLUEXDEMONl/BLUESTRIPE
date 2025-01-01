@@ -220,7 +220,7 @@ button:hover {
     gap: 20px;
 }
 
-#edit-profile-btn {
+#edit-profile-btn, #follow-btn {
     padding: 5px 10px;
     font-size: 14px;
 }
@@ -239,7 +239,7 @@ button:hover {
     cursor: pointer;
 }
 
-#modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -252,13 +252,58 @@ button:hover {
     z-index: 1000;
 }
 
-#modal-content {
+.modal-content {
     background-color: var(--white);
     padding: 20px;
     border-radius: 3px;
     max-width: 90%;
     max-height: 90%;
     overflow: auto;
+}
+
+.close {
+    color: var(--text-color);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.story-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#search-container {
+    position: relative;
+}
+
+#search-input {
+    width: 200px;
+    padding: 5px;
+}
+
+#search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    border: 1px solid var(--light-gray);
+    border-top: none;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.search-result {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-result:hover {
+    background-color: var(--light-gray);
 }
 
 @media (max-width: 768px) {

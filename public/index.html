@@ -11,10 +11,15 @@
     <header>
         <div class="container">
             <h1>BlueStrike</h1>
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search users...">
+                <div id="search-results" class="hidden"></div>
+            </div>
             <nav>
                 <a href="#" id="home-link"><i class="fas fa-home"></i></a>
                 <a href="#" id="profile-link"><i class="fas fa-user"></i></a>
                 <a href="#" id="create-post-link"><i class="fas fa-plus-square"></i></a>
+                <a href="#" id="create-story-link"><i class="fas fa-history"></i></a>
                 <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i></a>
             </nav>
         </div>
@@ -26,6 +31,7 @@
             <form id="auth-form">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Password" required>
+                <input type="email" id="email" placeholder="Email" required>
                 <button type="submit" id="auth-submit">Login</button>
             </form>
             <p>Don't have an account? <a href="#" id="toggle-auth">Register</a></p>
@@ -37,13 +43,14 @@
                     <div class="story-avatar">
                         <i class="fas fa-plus"></i>
                     </div>
-                    <span>Add Story</span>
+                    <span>Your Story</span>
                 </div>
                 <!-- Stories will be dynamically added here -->
             </div>
             <div id="posts-container">
                 <!-- Posts will be dynamically added here -->
             </div>
+            <div id="loading" class="hidden">Loading more posts...</div>
         </section>
 
         <section id="profile-section" class="hidden">
@@ -52,8 +59,9 @@
                 <div id="profile-info">
                     <h2 id="profile-username"></h2>
                     <p id="profile-stats"></p>
+                    <button id="edit-profile-btn">Edit Profile</button>
+                    <button id="follow-btn" class="hidden">Follow</button>
                 </div>
-                <button id="edit-profile-btn">Edit Profile</button>
             </div>
             <div id="user-posts-grid">
                 <!-- User posts will be dynamically added here -->
@@ -70,8 +78,31 @@
             </form>
         </section>
 
-        <div id="modal" class="hidden">
-            <div id="modal-content"></div>
+        <section id="create-story-section" class="hidden">
+            <h2>Create a New Story</h2>
+            <form id="story-form">
+                <input type="file" id="story-media" accept="image/*,video/*" required>
+                <div id="story-preview"></div>
+                <button type="submit">Share to Story</button>
+            </form>
+        </section>
+
+        <div id="story-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="story-display"></div>
+                <div class="story-navigation">
+                    <button id="prev-story">&lt;</button>
+                    <button id="next-story">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="post-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="modal-post-content"></div>
+            </div>
         </div>
     </main>
 

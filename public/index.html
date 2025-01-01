@@ -3,111 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue-stripe</title>
+    <title>Simple Media Platform</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1><span class="logo">Blue</span>-stripe</h1>
-            <div id="search-container">
-                <input type="text" id="search-input" placeholder="Search users...">
-                <div id="search-results" class="hidden"></div>
-            </div>
-            <nav>
-                <a href="#" id="home-link"><i class="fas fa-home"></i></a>
-                <a href="#" id="profile-link"><i class="fas fa-user"></i></a>
-                <a href="#" id="create-post-link"><i class="fas fa-plus-square"></i></a>
-                <a href="#" id="create-story-link"><i class="fas fa-history"></i></a>
-                <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i></a>
-            </nav>
+    <div id="app">
+        <h1>Simple Media Platform</h1>
+        <div id="auth-section">
+            <h2>Register / Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="register-btn">Register</button>
+            <button id="login-btn">Login</button>
         </div>
-    </header>
-
-    <main class="container">
-        <section id="auth-section">
-            <h2>Welcome to Blue-stripe</h2>
-            <form id="auth-form">
-                <input type="text" id="username" placeholder="Username" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <input type="email" id="email" placeholder="Email" required>
-                <button type="submit" id="auth-submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="#" id="toggle-auth">Register</a></p>
-        </section>
-
-        <section id="feed-section" class="hidden">
-            <div id="stories-container">
-                <div class="story add-story">
-                    <div class="story-avatar">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <span>Your Story</span>
-                </div>
-                <!-- Stories will be dynamically added here -->
+        <div id="user-section" style="display: none;">
+            <h2>Welcome, <span id="user-greeting"></span>!</h2>
+            <div id="profile-pic-section">
+                <h3>Profile Picture</h3>
+                <img id="profile-pic" src="" alt="Profile Picture" style="display: none;">
+                <input type="file" id="profile-pic-input" accept="image/*">
+                <button id="upload-profile-pic-btn">Upload Profile Picture</button>
             </div>
-            <div id="posts-container">
-                <!-- Posts will be dynamically added here -->
-            </div>
-            <div id="loading" class="hidden">Loading more posts...</div>
-        </section>
-
-        <section id="profile-section" class="hidden">
-            <div id="profile-header">
-                <img id="profile-picture" src="default-avatar.jpg" alt="Profile Picture">
-                <div id="profile-info">
-                    <h2 id="profile-username"></h2>
-                    <p id="profile-stats"></p>
-                    <button id="edit-profile-btn">Edit Profile</button>
-                    <button id="follow-btn" class="hidden">Follow</button>
-                </div>
-            </div>
-            <div id="user-posts-grid">
-                <!-- User posts will be dynamically added here -->
-            </div>
-        </section>
-
-        <section id="create-post-section" class="hidden">
-            <h2>Create a New Post</h2>
-            <form id="post-form">
-                <textarea id="post-caption" placeholder="Write a caption..." required></textarea>
-                <input type="file" id="post-media" accept="image/*,video/*" required>
-                <div id="media-preview"></div>
-                <button type="submit">Share</button>
-            </form>
-        </section>
-
-        <section id="create-story-section" class="hidden">
-            <h2>Create a New Story</h2>
-            <form id="story-form">
-                <input type="file" id="story-media" accept="image/*,video/*" required>
-                <div id="story-preview"></div>
-                <button type="submit">Share to Story</button>
-            </form>
-        </section>
-
-        <div id="story-modal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="story-display"></div>
-                <div class="story-navigation">
-                    <button id="prev-story">&lt;</button>
-                    <button id="next-story">&gt;</button>
-                </div>
+            <div id="create-post-section">
+                <h3>Create a Post</h3>
+                <input type="file" id="post-media-input" accept="image/*,video/*">
+                <textarea id="post-caption" placeholder="Write a caption..."></textarea>
+                <button id="create-post-btn">Create Post</button>
             </div>
         </div>
-
-        <div id="post-modal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="modal-post-content"></div>
-            </div>
+        <div id="posts-section">
+            <h2>Posts</h2>
+            <div id="posts-container"></div>
         </div>
-    </main>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
-

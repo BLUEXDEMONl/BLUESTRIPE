@@ -1,0 +1,16 @@
+{
+  "name": "bluestrike",
+  "version": "1.0.0",
+  "description": "A social media platform like Facebook and Instagram",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "bcrypt": "^5.0.1",
+    "express-session": "^1.17.1"
+  }
+}
+

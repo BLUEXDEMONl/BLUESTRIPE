@@ -3,39 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Media Platform</title>
+    <title>Advanced Media Platform</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <h1>Simple Media Platform</h1>
-        <div id="auth-section">
-            <h2>Register / Login</h2>
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <button id="register-btn">Register</button>
-            <button id="login-btn">Login</button>
-        </div>
-        <div id="user-section" style="display: none;">
-            <h2>Welcome, <span id="user-greeting"></span>!</h2>
-            <div id="profile-pic-section">
-                <h3>Profile Picture</h3>
-                <img id="profile-pic" src="" alt="Profile Picture" style="display: none;">
-                <input type="file" id="profile-pic-input" accept="image/*">
-                <button id="upload-profile-pic-btn">Upload Profile Picture</button>
-            </div>
-            <div id="create-post-section">
-                <h3>Create a Post</h3>
-                <input type="file" id="post-media-input" accept="image/*,video/*">
-                <textarea id="post-caption" placeholder="Write a caption..."></textarea>
-                <button id="create-post-btn">Create Post</button>
-            </div>
-        </div>
-        <div id="posts-section">
-            <h2>Posts</h2>
-            <div id="posts-container"></div>
-        </div>
+        <header>
+            <h1>Advanced Media Platform</h1>
+            <nav id="main-nav">
+                <a href="#" class="nav-link" data-section="feed">Feed</a>
+                <a href="#" class="nav-link" data-section="explore">Explore</a>
+                <a href="#" class="nav-link" data-section="profile">Profile</a>
+            </nav>
+        </header>
+        <main>
+            <section id="auth-section">
+                <h2>Welcome</h2>
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="Username">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <div class="button-group">
+                    <button id="register-btn">Register</button>
+                    <button id="login-btn">Login</button>
+                </div>
+            </section>
+            <section id="user-section" style="display: none;">
+                <div id="profile-section">
+                    <h2>Welcome, <span id="user-greeting"></span>!</h2>
+                    <div id="profile-pic-container">
+                        <img id="profile-pic" src="" alt="Profile Picture">
+                        <input type="file" id="profile-pic-input" accept="image/*">
+                        <button id="upload-profile-pic-btn">Update Profile Picture</button>
+                    </div>
+                    <div id="bio-container">
+                        <textarea id="bio-input" placeholder="Write your bio..."></textarea>
+                        <button id="update-bio-btn">Update Bio</button>
+                    </div>
+                </div>
+                <div id="create-post-section">
+                    <h3>Create a Post</h3>
+                    <input type="file" id="post-media-input" accept="image/*,video/*">
+                    <textarea id="post-caption" placeholder="Write a caption..."></textarea>
+                    <button id="create-post-btn">Create Post</button>
+                </div>
+            </section>
+            <section id="feed-section" class="content-section">
+                <h2>Your Feed</h2>
+                <div id="posts-container"></div>
+            </section>
+            <section id="explore-section" class="content-section">
+                <h2>Explore</h2>
+                <div id="explore-container"></div>
+            </section>
+            <section id="profile-section" class="content-section">
+                <h2>Your Profile</h2>
+                <div id="user-posts-container"></div>
+            </section>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
+
+    

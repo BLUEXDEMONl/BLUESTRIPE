@@ -1,21 +1,19 @@
 {
-  "name": "advanced-media-platform",
-  "version": "1.0.0",
-  "description": "An advanced media platform like Facebook or Instagram",
-  "main": "server.js",
+  "name": "new-project",
+  "version": "5.0.0",
+  "description": "A basic project with required dependencies",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "multer": "^1.4.2",
-    "body-parser": "^1.19.0",
-    "bcrypt": "^5.0.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.12"
+    "@whiskeysockets/baileys": "^6.7.9"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

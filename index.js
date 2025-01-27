@@ -1,21 +1,73 @@
-const { default: makeWASocket, DisconnectReason, useSingleFileAuthState } = require('@whiskeysockets/baileys');
-const { state, saveState } = useSingleFileAuthState('./auth_info.json');
+import { default as makeWASocket, DisconnectReason, useSingleFileAuthState } from "@whiskeysockets/baileys"
+import { Boom } from "@hapi/boom"
+import fs from "fs"
+import path from "path"
 
-async function startBot() {
-    const sock = makeWASocket({ auth: state, printQRInTerminal: true });
-    sock.ev.on('creds.update', saveState);
-    sock.ev.on('connection.update', (update) => {
-        if (update.connection === 'close' && (update.lastDisconnect.error)?.output?.statusCode !== DisconnectReason.loggedOut) startBot();
-        else if (update.connection === 'open') console.log('Bot connected');
-    });
-    sock.ev.on('messages.upsert', async (msg) => {
-        const message = msg.messages[0];
-        if (!message.message || message.key.fromMe) return;
-        const text = message.message.conversation || message.message.extendedTextMessage?.text;
-        const sender = message.key.remoteJid;
-        if (text.toLowerCase() === 'hi') await sock.sendMessage(sender, { text: 'Hello!' });
-        if (text.toLowerCase() === 'ping') await sock.sendMessage(sender, { text: 'Pong!' });
-    });
+const pluginsFolder = "./plugins"
+
+// Load plugins
+const loadPlugins = () => {
+  const plugins = {}
+  const files = fs.readdirSync(pluginsFolder)
+  for (const file of files) {
+    if (file.endsWith(".js")) {
+      const plugin = import(path.join(process.cwd(), pluginsFolder, file))
+      plugins[file.slice(0, -3)] = plugin
+    }
+  }
+  return plugins
 }
 
-startBot();
+const plugins = loadPlugins()
+
+async function connectToWhatsApp() {
+  const { state, saveCreds } = await useSingleFileAuthState("auth_info_baileys")
+
+  const sock = makeWASocket({
+    printQRInTerminal: true,
+    auth: state,
+  })
+
+  sock.ev.on("connection.update", (update) => {
+    const { connection, lastDisconnect } = update
+    if (connection === "close") {
+      const shouldReconnect =
+        lastDisconnect.error instanceof Boom && lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut
+      console.log("connection closed due to ", lastDisconnect.error, ", reconnecting ", shouldReconnect)
+      if (shouldReconnect) {
+        connectToWhatsApp()
+      }
+    } else if (connection === "open") {
+      console.log("opened connection")
+    }
+  })
+
+  sock.ev.on("messages.upsert", async (m) => {
+    console.log(JSON.stringify(m, undefined, 2))
+
+    const msg = m.messages[0]
+    if (!msg.key.fromMe && m.type === "notify") {
+      const messageText = msg.message?.conversation || msg.message?.extendedTextMessage?.text || ""
+
+      // Check if the message is a command
+      if (messageText.startsWith("!")) {
+        const [command, ...args] = messageText.slice(1).split(" ")
+        if (plugins[command]) {
+          try {
+            await plugins[command].execute(sock, msg, args)
+          } catch (error) {
+            console.error(`Error executing command ${command}:`, error)
+            await sock.sendMessage(msg.key.remoteJid, { text: "An error occurred while processing your command." })
+          }
+        } else {
+          await sock.sendMessage(msg.key.remoteJid, { text: "Unknown command. Type !help for a list of commands." })
+        }
+      }
+    }
+  })
+
+  sock.ev.on("creds.update", saveCreds)
+}
+
+connectToWhatsApp()
+
